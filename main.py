@@ -17,6 +17,6 @@ client = commands.Bot(
 async def on_ready():
     prfx = (Back.BLACK + Fore.GREEN + time.strftime("%H:%M:%S UTC", time.gmtime()) + Back.RESET + Fore.WHITE + Style.BRIGHT)
     print(prfx + "Logged in as " + Fore.YELLOW + client.user.name)
-    print(prfx + "Bot ID " + Fore.YELLOW + client.user.id)
+    print(prfx + "Bot ID " + Fore.YELLOW + str(client.user.id))
     print(prfx + "Discord Version " + Fore.YELLOW + discord.__version__)
     print(prfx + "Python Version " + Fore.YELLOW + str(platform.python_version()))
