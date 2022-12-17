@@ -18,7 +18,7 @@ client = commands.Bot(
 @client.event
 async def on_ready():
     prfx = (Back.BLACK + Fore.GREEN + time.strftime("%H:%M:%S UTC ", time.gmtime()) + Back.RESET + Fore.WHITE + Style.BRIGHT)
-    print(prfx + "Logged in as " + Fore.YELLOW + client.user.name)
+    print(prfx + "Logged in as " + Fore.YELLOW + client.user.name + "#" + client.user.discriminator)
     print(prfx + "Bot ID " + Fore.YELLOW + str(client.user.id))
     print(prfx + "Discord Version " + Fore.YELLOW + discord.__version__)
     print(prfx + "Python Version " + Fore.YELLOW + str(platform.python_version()))
@@ -71,6 +71,6 @@ async def serverinfo(ctx):
     await ctx.send(embed = embed)
 
 
-token = os.environ.get("bot_token")
+token = os.environ.get("bot_token") # I stored my bot token as environment variable so you can just paste your own like: token = "your_token"
 #keep_alive()  #if you want to host the bot on replit you must delete the hash in the start of this line
 client.run(token)
