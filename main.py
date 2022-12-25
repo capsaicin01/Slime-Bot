@@ -72,7 +72,8 @@ async def serverinfo(ctx):
 
     await ctx.send(embed = embed)
 
-@client.command()
+@client.hybrid_command(name="avatar", description="Returns your profile picture")
+@discord.app_commands.describe(member="The member whose avatar will be sent")
 async def avatar(ctx, member:discord.Member = None):
     if member == None:
         member = ctx.message.author
