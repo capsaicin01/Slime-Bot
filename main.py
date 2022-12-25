@@ -18,10 +18,12 @@ client = commands.Bot(
 @client.event
 async def on_ready():
     prfx = (Back.BLACK + Fore.GREEN + time.strftime("%H:%M:%S UTC ", time.gmtime()) + Back.RESET + Fore.WHITE + Style.BRIGHT)
-    print(prfx + "Logged in as " + Fore.YELLOW + client.user.name + "#" + client.user.discriminator)
-    print(prfx + "Bot ID " + Fore.YELLOW + str(client.user.id))
-    print(prfx + "Discord Version " + Fore.YELLOW + discord.__version__)
-    print(prfx + "Python Version " + Fore.YELLOW + str(platform.python_version()))
+    print(prfx + " Logged in as " + Fore.YELLOW + client.user.name + "#" + client.user.discriminator)
+    print(prfx + " Bot ID " + Fore.YELLOW + str(client.user.id))
+    print(prfx + " Discord Version " + Fore.YELLOW + discord.__version__)
+    print(prfx + " Python Version " + Fore.YELLOW + str(platform.python_version()))
+    synced = await client.tree.sync()
+    print(prfx + " Slash Commands Synced, " + Fore.YELLOW + str(len(synced)) + " Commands")
 
 
 @client.command(aliases=["userinfo", "uinfo"])
@@ -69,6 +71,14 @@ async def serverinfo(ctx):
     embed.add_field(name="Created at", value = ctx.guild.created_at.strftime("%d %B %Y, UTC %I:%M %p"))
 
     await ctx.send(embed = embed)
+
+@client.command()
+async def avatar(ctx, member:discord.Member = None):
+    if member == None:
+        member = ctx.message.author
+
+    await ctx.send(member.display_avatar)
+
 
 
 token = os.environ.get("bot_token") # I stored my bot token as environment variable so you can just paste your own like: token = "your_token"
