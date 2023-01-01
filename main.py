@@ -80,6 +80,9 @@ async def avatar(ctx, member:discord.Member = None):
 
     await ctx.send(member.display_avatar)
 
+@client.hybrid_command(name="ping", description="Returns the bot's network latency")
+async def ping(ctx):
+    await ctx.send(f"{int(client.latency*1000)} ms")
 
 
 token = os.environ.get("bot_token") # I stored my bot token as environment variable so you can just paste your own like: token = "your_token"
