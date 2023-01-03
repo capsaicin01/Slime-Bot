@@ -1,6 +1,7 @@
 import discord
 from discord.ext import commands
 from colorama import Back, Fore, Style
+from pathlib import Path
 import os
 import time
 import platform
@@ -14,16 +15,26 @@ client = commands.Bot(
     intents = discord.Intents.all()
 )
 
+# Cogs Setup
+async def load_extensions():
+    cog_list = [p.stem for p in Path(".").glob("./cogs/*.py")]
+    for cog in cog_list:
+        await client.load_extension(f"cogs.{cog}")
+        print(f"Loaded {cog}.")
+
+
 
 @client.event
 async def on_ready():
+    await load_extensions()
     prfx = (Back.BLACK + Fore.GREEN + time.strftime("%H:%M:%S UTC ", time.gmtime()) + Back.RESET + Fore.WHITE + Style.BRIGHT)
+    synced = await client.tree.sync()
     print(prfx + " Logged in as " + Fore.YELLOW + client.user.name + "#" + client.user.discriminator)
     print(prfx + " Bot ID " + Fore.YELLOW + str(client.user.id))
     print(prfx + " Discord Version " + Fore.YELLOW + discord.__version__)
     print(prfx + " Python Version " + Fore.YELLOW + str(platform.python_version()))
-    synced = await client.tree.sync()
     print(prfx + " Slash Commands Synced, " + Fore.YELLOW + str(len(synced)) + " Commands")
+    print(prfx + " Joined Servers " + Fore.YELLOW + str(len(client.guilds)))
 
 
 @client.command(aliases=["userinfo", "uinfo"])
