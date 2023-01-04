@@ -108,9 +108,9 @@ class Queue(list):
         super().clear()
         self._currentSong = None
     
-    def get_embed(self, song_index=0):
+    def get_embed(self, song_index):
         
-        if song_index <= 0:
+        if song_index == 0: #default value from songinfo command in musicCog
             song = self._currentSong
         else:
             song = self[song_index - 1]

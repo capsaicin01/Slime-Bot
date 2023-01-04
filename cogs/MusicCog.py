@@ -57,9 +57,9 @@ class MusicCog(commands.Cog):
         voice.stop()
     
     @commands.command()
-    async def songinfo(self, ctx, song_idx = None):
+    async def songinfo(self, ctx, song_idx = 0):
         queue = self.music_queues[ctx.guild.id]
-        embed = queue.get_embed()
+        embed = queue.get_embed(song_idx)
         await ctx.send(embed=embed)
 
     async def play_song(self, guild:discord.Guild, song:Song):
